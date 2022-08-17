@@ -62,6 +62,7 @@ const Login = () => {
       if (res.status === 200) {
         navigate("/login");
         localStorage.setItem("user", JSON.stringify(res));
+        localStorage.setItem("token", JSON.stringify(res.token));
       } else {
         navigate("/");
         alert("not registered");
@@ -82,7 +83,10 @@ const Login = () => {
             placeholder="Email"
             className="form"
             autoComplete="off"
-            {...register("email", { required: true })}
+            {...register("email", {
+              required: true,
+              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+            })}
           />
           <p>{errors.email?.message}</p>
           {/* <br /> */}
